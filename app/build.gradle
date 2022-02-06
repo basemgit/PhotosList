@@ -39,6 +39,10 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
@@ -49,6 +53,8 @@ dependencies {
     def hiltLifeCycleVersion = '1.0.0-alpha03'
     def coilVersion = '1.2.2'
     def room_version = '2.4.0'
+    def archTestingVersion = '2.1.0'
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -105,6 +111,9 @@ dependencies {
     androidTestImplementation "androidx.test:rules:1.4.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    // Dependencies for Android instrumented unit tests
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
 
     // Hilt testing dependency
