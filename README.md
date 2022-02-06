@@ -1,5 +1,5 @@
 # PhotosList
-Displaying photos list from flickr api , image go full screen when clicked
+Displaying photos list from flickr api , image go full screen when clicked   
 Tech stack :  
 Architecture components  
 Navigation components  
