@@ -1,5 +1,6 @@
 package com.basemibrahim.photoslist.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
@@ -10,6 +11,7 @@ import com.basemibrahim.photoslist.data.Photo
 import com.basemibrahim.photoslist.databinding.AdBannerViewItemBinding
 import com.basemibrahim.photoslist.databinding.GridViewItemBinding
 import com.basemibrahim.photoslist.utils.Constants.Companion.AD_TYPE
+import com.basemibrahim.photoslist.utils.Constants.Companion.IMG
 import com.basemibrahim.photoslist.utils.Constants.Companion.LIST_AD_DELTA
 import com.basemibrahim.photoslist.utils.Constants.Companion.NORMAL_TYPE
 
@@ -77,14 +79,10 @@ class PhotosAdapter(data: List<Photo>) : RecyclerView.Adapter<
         RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: Photo) {
             binding.photo = photo
-
-
             binding.img.setOnClickListener {
-                val action = ListFragmentDirections.actionListFragmentToDetailsFragment(
-                    img = binding.img.drawable.toBitmap()
-                )
-
-                binding.root.findNavController().navigate(action)
+                var intent = Intent(binding.root.context, ImageActivity::class.java)
+                intent.putExtra(IMG, binding.img.drawable.toBitmap())
+                binding.root.context.startActivity(intent)
             }
 
             binding.executePendingBindings()

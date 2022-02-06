@@ -16,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +25,12 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(id.nav_host_fragment)
         as NavHostFragment
         navController = navHostFragment.navController
-        setupActionBarWithNavController(navController)
+  //      setupActionBarWithNavController(navController)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
 
 }

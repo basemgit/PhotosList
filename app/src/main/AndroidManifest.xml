@@ -24,6 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.basemibrahim.photoslist.ui.ImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+        >
+        </activity>
     </application>
 
 </manifest>
