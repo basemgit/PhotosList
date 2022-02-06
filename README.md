@@ -5,8 +5,9 @@ Architecture components
 Navigation components  
 Data Binding   
 Retrofit  
-coroutine   
-flow   
+Coroutine   
+Flow   
 Room     
-Hilt       
+Hilt
+Coil  
 Ui/Unit Testing 
