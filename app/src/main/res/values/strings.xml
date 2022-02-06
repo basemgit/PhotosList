@@ -2,4 +2,6 @@
     <string name="app_name">PhotosList</string>
     <string name="no_internet">No Internet</string>
     <string name="ad_text">Ad Text</string>
+    <string name="photo">Photo</string>
+    <string name="photosList">Photos List</string>
 </resources>

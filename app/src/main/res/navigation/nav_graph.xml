@@ -22,5 +22,17 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.basemibrahim.photoslist.ui.ListFragment"
-        android:label="ListFragment" />
+        android:label="@string/photosList" >
+        <action
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.basemibrahim.photoslist.ui.DetailsFragment"
+        android:label="@string/photo" >
+        <argument
+            android:name="img"
+            app:argType="android.graphics.Bitmap" />
+    </fragment>
 </navigation>

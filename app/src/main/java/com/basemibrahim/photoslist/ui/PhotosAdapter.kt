@@ -2,7 +2,10 @@ package com.basemibrahim.photoslist.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toBitmap
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.basemibrahim.photoslist.R
 import com.basemibrahim.photoslist.data.Photo
 import com.basemibrahim.photoslist.databinding.AdBannerViewItemBinding
 import com.basemibrahim.photoslist.databinding.GridViewItemBinding
@@ -41,30 +44,28 @@ class PhotosAdapter(data: List<Photo>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(getItemViewType(position) == NORMAL_TYPE && holder is PhotosViewHolder)
-        {
-           holder.bind(list[getRealPosition(position)])
+        if (getItemViewType(position) == NORMAL_TYPE && holder is PhotosViewHolder) {
+            holder.bind(list[getRealPosition(position)])
         }
 
     }
 
     override fun getItemCount(): Int {
         var additionalContent = 0
-        if (list.size> 0 && LIST_AD_DELTA > 0 && list.size > LIST_AD_DELTA) {
-            additionalContent = (list.size + (list.size)/ LIST_AD_DELTA) / LIST_AD_DELTA;
+        if (list.size > 0 && LIST_AD_DELTA > 0 && list.size > LIST_AD_DELTA) {
+            additionalContent = (list.size + (list.size) / LIST_AD_DELTA) / LIST_AD_DELTA;
         }
         return list.size + additionalContent
     }
 
     override fun getItemViewType(position: Int): Int {
-if (position > 0 &&position % LIST_AD_DELTA == 0)
-    return AD_TYPE
-    return NORMAL_TYPE
+        if (position > 0 && position % LIST_AD_DELTA == 0)
+            return AD_TYPE
+        return NORMAL_TYPE
     }
 
-   private fun getRealPosition(position: Int): Int
-    {
-        if(LIST_AD_DELTA == 0)
+    private fun getRealPosition(position: Int): Int {
+        if (LIST_AD_DELTA == 0)
             return position
         else return position - position / LIST_AD_DELTA
     }
@@ -77,24 +78,19 @@ if (position > 0 &&position % LIST_AD_DELTA == 0)
         fun bind(photo: Photo) {
             binding.photo = photo
 
-//            binding.root.setOnClickListener {
-//                val action = ListFragmentDirections.actionListFragmentToDetailsFragment(
-//                    title = movie.title,
-//                    img = movie.poster_path,
-//                    description = movie.overview,
-//                    releaseDate = movie.release_date,
-//                    votesAverage = movie.vote_average.toString(),
-//                    popularity = movie.popularity.toString(),
-//                    movieId = movie.id,
-//                    isFavourite = movie.isFavourite
-//                )
-//                binding.root.findNavController().navigate(action)
-//            }
+
+            binding.img.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToDetailsFragment(
+                    img = binding.img.drawable.toBitmap()
+                )
+
+                binding.root.findNavController().navigate(action)
+            }
+
             binding.executePendingBindings()
         }
+
     }
-
-
 
     inner class AdBannerViewHolder(
         private var binding:
@@ -106,7 +102,6 @@ if (position > 0 &&position % LIST_AD_DELTA == 0)
         }
 
     }
-
 
 
 }
