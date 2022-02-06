@@ -11,12 +11,24 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class Repository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource
+
 ) : BaseApiResponse() {
 
     suspend fun getPhotos(page: Int): Flow<NetworkResult<PhotosResponse>> {
         return flow<NetworkResult<PhotosResponse>> {
             emit(safeApiCall { remoteDataSource.getPhotos(page) })
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun savePhotosResponse(response: PhotosResponse) {
+        localDataSource.savePhotosResponse(response)
+    }
+
+    suspend fun getResponseFromDb(): Flow<PhotosResponse> {
+        return flow<PhotosResponse> {
+            emit(localDataSource.getResponse())
         }.flowOn(Dispatchers.IO)
     }
 

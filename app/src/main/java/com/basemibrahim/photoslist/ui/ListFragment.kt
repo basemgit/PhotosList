@@ -62,6 +62,8 @@ class ListFragment : Fragment() {
             )
                 .show()
             _binding.pbDog.visibility = View.GONE
+            mainViewModel.fetchResponseFromDb()
+            processLocalData()
 
         }
     }
@@ -99,10 +101,26 @@ class ListFragment : Fragment() {
         }
         data.photos.photo = ArrayList()
         (data.photos.photo as ArrayList<Photo>).addAll(list)
+        mainViewModel.savePhotosResponseToDb(data)
         adapter.notifyDataSetChanged()
-
     }
 
+    private fun processLocalData() {
+        mainViewModel.responseDB.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                showMoviesFromDb(it)
+            }
+        }
+    }
+
+    private fun showMoviesFromDb(localData: PhotosResponse) {
+        for (item in localData.photos.photo) {
+            if (!list.contains(item)) {
+                list.add(item)
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
     fun loadMore() {
 
         if (Utils.isNetworkAvailable(requireContext())) {

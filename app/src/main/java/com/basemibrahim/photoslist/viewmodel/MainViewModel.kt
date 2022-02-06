@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.basemibrahim.photoslist.data.Photos
 import com.basemibrahim.photoslist.data.PhotosResponse
 import com.basemibrahim.photoslist.data.Repository
 import com.basemibrahim.photoslist.utils.NetworkResult
@@ -23,6 +24,8 @@ class MainViewModel @Inject constructor
     private val _response: MutableLiveData<NetworkResult<PhotosResponse>> = MutableLiveData()
     val response: LiveData<NetworkResult<PhotosResponse>> = _response
 
+    private val _responseDB: MutableLiveData<PhotosResponse> = MutableLiveData()
+    val responseDB: LiveData<PhotosResponse>  = _responseDB
 
     fun getPhotos(page: Int) = viewModelScope.launch {
         repository.getPhotos(page).collect { values ->
@@ -30,5 +33,15 @@ class MainViewModel @Inject constructor
         }
     }
 
+    fun savePhotosResponseToDb(response: PhotosResponse) = viewModelScope.launch {
+        repository.savePhotosResponse(response)
+    }
+
+
+    fun fetchResponseFromDb() = viewModelScope.launch {
+        repository.getResponseFromDb().collect { values ->
+            _responseDB.value = values
+        }
+    }
 
 }
